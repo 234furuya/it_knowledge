@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset='utf-8'>
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen">
+    <link rel="stylesheet" type="text/css" href="stylesheets/pygment_trac.css" media="screen">
+    <link rel="stylesheet" type="text/css" href="stylesheets/print.css" media="print">
+
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+
+    <style>
+    .command-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-bottom: 1.5em;
+    }
+    .command-table th,
+    .command-table td {
+      border: 1px solid #cccccc;
+      padding: 8px 10px;
+      text-align: left;
+      vertical-align: top;
+    }
+    /* ヘッダー（th行）の背景色 */
+    .command-table thead th {
+      background-color: #34495e;
+      color: #ffffff;
+      font-weight: bold;
+    }
+    /* 1コマンド（2行セット）ごとの交互背景色 */
+    .command-table tbody:nth-of-type(odd) tr {
+      background-color: #ffffff;
+    }
+    .command-table tbody:nth-of-type(even) tr {
+      background-color: #f3f6f9;
+    }
+    /* セット内の1行目と2行目の境界は薄い点線にし、一体感を出す */
+    .command-table tbody tr:first-child td {
+      border-bottom: 1px dashed #d0d7de;
+    }
+    /* セットの終わり（2行目）の下線を少し強調 */
+    .command-table tbody tr:last-child td {
+      border-bottom: 2px solid #95a5a6;
+    }
+    .command-table .note-cell {
+      font-size: 0.92em;
+      color: #333333;
+    }
+  </style>
+
+    <title>IT知識集 コマンド</title>
+  </head>
+
+  <body>
+    <header>
+      <div class="inner">
+        <h1>IT知識集</h1>
+        <a href="https://github.com/234furuya" class="button"><small>Follow me on</small>GitHub</a>
+      </div>
+    </header>
+
+    <div id="content-wrapper">
+      <div class="inner clearfix">
+<section id="main-content">
+    <h1>CLIでよく使う基本コマンド</h1>
+
+    <h2>コマンド操作の基本の考え方</h2>
+    <ul>
+      <li>コマンドを丸暗記する：△</li>
+      <li>「今どのフォルダ（ディレクトリ）にいるか」を意識しながら目的別に使い分ける：◯</li>
+    </ul>
+    <p>CLIにはマウスカーソルがないため、常に「現在地（カレントディレクトリ）」を起点にして操作を行います。</p>
+    <p>macOSとLinuxは基本コマンドが共通しています。Windowsは「コマンドプロンプト」と「PowerShell」で書き方が異なるものがあるため、あわせて記載しています。</p>
+
+    <h2>1. ディレクトリ（フォルダ）の確認・移動</h2>
+    <p>自分が今どこにいて、中に何があるかを確認し、目的の場所へ移動するための基本コマンドです。</p>
+
+    <table class="command-table">
+      <thead>
+        <tr>
+          <th>やりたいこと</th>
+          <th>macOS / Linux</th>
+          <th>Windows<br>（コマンドプロンプト / PowerShell）</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>現在の場所（パス）を確認する</td>
+          <td><code>pwd</code></td>
+          <td><code>cd</code>（引数なし）<br>※PowerShellは <code>pwd</code> も可</td>
+        </tr>
+        <tr>
+          <td colspan="3" class="note-cell"><strong>語源・補足：</strong><strong>P</strong>rint <strong>W</strong>orking <strong>D</strong>irectory（作業ディレクトリを表示）</td>
+        </tr>
+      </tbody>
+      <tbody>
+        <tr>
+          <td>フォルダ内のファイル一覧を表示</td>
+          <td><code>ls</code></td>
+          <td><code>dir</code><br>※PowerShellは <code>ls</code> も可</td>
+        </tr>
+        <tr>
+          <td colspan="3" class="note-cell"><strong>語源・補足：</strong><strong>L</strong>i<strong>s</strong>t（一覧表示） / <strong>Dir</strong>ectory</td>
+        </tr>
+      </tbody>
+      <tbody>
+        <tr>
+          <td>ファイル一覧を詳細付きで表示</td>
+          <td><code>ls -l</code></td>
+          <td><code>dir</code><br>※PowerShellは <code>ls</code>（標準で詳細表示）</td>
+        </tr>
+        <tr>
+          <td colspan="3" class="note-cell"><strong>語源・補足：</strong><code>-l</code>（long）オプションを付けると、権限・サイズ・更新日時なども確認できます。</td>
+        </tr>
+      </tbody>
+      <tbody>
+        <tr>
+          <td>作業フォルダを移動する</td>
+          <td><code>cd フォルダ名</code></td>
+          <td><code>cd フォルダ名</code></td>
+        </tr>
+        <tr>
+          <td colspan="3" class="note-cell"><strong>語源・補足：</strong><strong>C</strong>hange <strong>D</strong>irectory。<code>cd ..</code> で1つ上の階層へ戻ります。</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h2>2. ファイル・ディレクトリの作成・複製・移動・削除</h2>
+    <p>マウスでの「右クリック → 新規作成 / コピー / 削除」に相当する操作を行うコマンドです。</p>
+
+    <table class="command-table">
+      <thead>
+        <tr>
+          <th>やりたいこと</th>
+          <th>macOS / Linux</th>
+          <th>Windows<br>（コマンドプロンプト / PowerShell）</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>新しいフォルダを作成する</td>
+          <td><code>mkdir フォルダ名</code></td>
+          <td><code>mkdir フォルダ名</code></td>
+        </tr>
+        <tr>
+          <td colspan="3" class="note-cell"><strong>語源・補足：</strong><strong>M</strong>a<strong>k</strong>e <strong>Dir</strong>ectory（ディレクトリ作成）</td>
+        </tr>
+      </tbody>
+      <tbody>
+        <tr>
+          <td>空のファイルを作成する</td>
+          <td><code>touch ファイル名</code></td>
+          <td><code>type nul &gt; ファイル名</code><br>※PowerShellは <code>ni ファイル名</code></td>
+        </tr>
+        <tr>
+          <td colspan="3" class="note-cell"><strong>語源・補足：</strong>新規の空ファイル作成や、既存ファイルの更新日時変更に使います。</td>
+        </tr>
+      </tbody>
+      <tbody>
+        <tr>
+          <td>ファイルをコピーする</td>
+          <td><code>cp コピー元 コピー先</code></td>
+          <td><code>copy コピー元 コピー先</code><br>※PowerShellは <code>cp</code> も可</td>
+        </tr>
+        <tr>
+          <td colspan="3" class="note-cell"><strong>語源・補足：</strong><strong>C</strong>o<strong>p</strong>y（コピー）。設定変更前のバックアップ作成などで頻出です。</td>
+        </tr>
+      </tbody>
+      <tbody>
+        <tr>
+          <td>ファイルを移動・名前変更する</td>
+          <td><code>mv 移動元 移動先</code></td>
+          <td><code>move 移動元 移動先</code><br>※PowerShellは <code>mv</code> も可</td>
+        </tr>
+        <tr>
+          <td colspan="3" class="note-cell"><strong>語源・補足：</strong><strong>M</strong>o<strong>v</strong>e（移動）。同じフォルダ内で別名を指定すると名前変更になります。</td>
+        </tr>
+      </tbody>
+      <tbody>
+        <tr>
+          <td>ファイルを削除する</td>
+          <td><code>rm ファイル名</code></td>
+          <td><code>del ファイル名</code><br>※PowerShellは <code>rm</code> も可</td>
+        </tr>
+        <tr>
+          <td colspan="3" class="note-cell"><strong>語源・補足：</strong><strong>R</strong>e<strong>m</strong>ove（削除）。<strong>ゴミ箱に入らず即完全削除</strong>されるため注意。</td>
+        </tr>
+      </tbody>
+      <tbody>
+        <tr>
+          <td>フォルダを中身ごと削除する</td>
+          <td><code>rm -r フォルダ名</code></td>
+          <td><code>rmdir /s フォルダ名</code><br>※PowerShellは <code>rm -r フォルダ名</code></td>
+        </tr>
+        <tr>
+          <td colspan="3" class="note-cell"><strong>語源・補足：</strong><code>-r</code>（recursive：再帰的）を付けることで、フォルダ内のファイルごと削除します。</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h2>3. ファイルの閲覧・編集</h2>
+    <p>CLI画面上でテキストファイルや設定ファイルの中身を確認したり、直接書き換えたりするコマンドです。</p>
+
+    <table class="command-table">
+      <thead>
+        <tr>
+          <th>やりたいこと</th>
+          <th>macOS / Linux</th>
+          <th>Windows<br>（コマンドプロンプト / PowerShell）</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>ファイルの中身を表示する</td>
+          <td><code>cat ファイル名</code></td>
+          <td><code>type ファイル名</code><br>※PowerShellは <code>cat</code> も可</td>
+        </tr>
+        <tr>
+          <td colspan="3" class="note-cell"><strong>語源・補足：</strong>Con<strong>cat</strong>enate（連結して出力）。短い設定ファイルやログの確認に使います。</td>
+        </tr>
+      </tbody>
+      <tbody>
+        <tr>
+          <td>CLI上でファイルを編集する</td>
+          <td><code>nano ファイル名</code></td>
+          <td><code>notepad ファイル名</code>（メモ帳起動）<br>※標準のCLIエディタはなし</td>
+        </tr>
+        <tr>
+          <td colspan="3" class="note-cell"><strong>語源・補足：</strong>画面下部に操作ショートカットが表示されるため、初心者でも扱いやすいテキストエディタです（終了は <code>Ctrl + X</code>）。</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h2>4. 通信・システム情報・終了</h2>
+    <p>リモートサーバーへの接続や、ログイン状況・日時の確認、作業の終了に使うコマンドです。</p>
+
+    <table class="command-table">
+      <thead>
+        <tr>
+          <th>やりたいこと</th>
+          <th>macOS / Linux</th>
+          <th>Windows<br>（コマンドプロンプト / PowerShell）</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>別サーバーへ安全に遠隔接続する</td>
+          <td><code>ssh ユーザー名@ホスト名</code></td>
+          <td><code>ssh ユーザー名@ホスト名</code></td>
+        </tr>
+        <tr>
+          <td colspan="3" class="note-cell"><strong>語源・補足：</strong><strong>S</strong>ecure <strong>Sh</strong>ell（セキュアシェル）。通信を暗号化してLinuxサーバー等にログインします（Windows 10/11でも標準搭載）。</td>
+        </tr>
+      </tbody>
+      <tbody>
+        <tr>
+          <td>ネットワークの疎通確認をする</td>
+          <td><code>ping 宛先(IPやドメイン)</code></td>
+          <td><code>ping 宛先(IPやドメイン)</code></td>
+        </tr>
+        <tr>
+          <td colspan="3" class="note-cell"><strong>語源・補足：</strong>対象のサーバーやネットワークに正しく通信が届くか確認します（全OS共通）。</td>
+        </tr>
+      </tbody>
+      <tbody>
+        <tr>
+          <td>現在ログイン中のユーザーを確認</td>
+          <td><code>who</code></td>
+          <td><code>query user</code>（または <code>whoami</code>）</td>
+        </tr>
+        <tr>
+          <td colspan="3" class="note-cell"><strong>語源・補足：</strong>サーバーに今誰がログインしているかを一覧表示します。自分自身だけを確認したい場合は <code>whoami</code> を使います。</td>
+        </tr>
+      </tbody>
+      <tbody>
+        <tr>
+          <td>現在の日付・時刻を確認する</td>
+          <td><code>date</code></td>
+          <td><code>date /t</code> と <code>time /t</code><br>※PowerShellは <code>Get-Date</code></td>
+        </tr>
+        <tr>
+          <td colspan="3" class="note-cell"><strong>語源・補足：</strong>サーバーのシステム時刻（タイムゾーンが日本時間かUTCか等）を確認するときによく使います。</td>
+        </tr>
+      </tbody>
+      <tbody>
+        <tr>
+          <td>シェルや遠隔接続を終了する</td>
+          <td><code>exit</code></td>
+          <td><code>exit</code></td>
+        </tr>
+        <tr>
+          <td colspan="3" class="note-cell"><strong>語源・補足：</strong><code>ssh</code> でのリモート接続の切断や、ターミナル画面を閉じるときに使います（全OS共通）。</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h2>知っておくと便利なショートカット・機能</h2>
+    <ul>
+      <li><strong>Tabキー（入力補完）</strong>：ファイル名やフォルダ名を途中まで打って Tab キーを押すと、残りを自動入力してくれます（打ち間違い防止に必須）。</li>
+      <li><strong>↑ / ↓ キー（履歴呼び出し）</strong>：過去に実行したコマンドを呼び出して再利用できます。</li>
+      <li><strong>Ctrl + C（強制終了）</strong>：処理が止まらなくなったときや、入力中のコマンドを取り消したいときに使います。</li>
+    </ul>
+  </section>
+
+
+
+      </div>
+    </div>
+  </body>
+</html>
